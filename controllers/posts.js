@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const slugify= require('slugify')
 
 
 const Post = require('./../models/posts');
@@ -28,7 +29,8 @@ router.post('/posts', async (req, res) => {
     try {
         const title = req.body.title;
         const content = req.body.content;
-        const post = new Post({title, content})
+        const slug=slugify(title);
+        const post = new Post({title,slug, content})
         await post.create();
         // console.log('post created')
         // console.log(post)
